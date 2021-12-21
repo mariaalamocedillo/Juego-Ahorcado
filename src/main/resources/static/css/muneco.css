@@ -1,0 +1,42 @@
+.seis {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') 0 0;
+}
+.cinco {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -78.15px 0;
+}
+.cuatro {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -156.30px 0;
+}
+.tres {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -234.45px 0;
+}
+.dos {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -312.60px 0;
+}
+.uno {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -390.75px 0;
+}
+.cero {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -468.90px 0;
+}

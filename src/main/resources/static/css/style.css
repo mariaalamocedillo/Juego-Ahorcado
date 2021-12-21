@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap');
+body{
+    background-color: #7ad0e040 !important;
+    font-family: 'Prompt', serif !important;
+}
+a{
+    background-color: #49cbe3;
+}
+button {
+    border: 3px solid #ffed86 !important;
+    color: #ffed86;
+    background-color: rgb(98 187 250);
+    margin-top: 0.5em;
+}
+#navegacion{
+    background-color: #ffed86;
+    border-radius: 15px;
+    padding: 0.375rem 0.75rem;
+    width: 35%;
+    margin: 1em auto;
+}
+
+.container{
+    margin: 2rem;
+}
+table {
+    border-collapse: collapse;
+    background:white;
+    border-radius: 15px 15px 0 0;
+    overflow:hidden;
+    max-width:800px;
+    width:100%;
+    margin:0 auto;
+    position:relative;
+}
+th, td {
+    text-align: center;
+    border-bottom: 1px solid #FFED86;
+    border-collapse: collapse;
+}
+thead tr {
+    height:60px;
+    background:#FFED86;
+    font-size:16px;
+}
+h1{
+    font-family: 'Aclonica', serif !important;
+    font-size: 42px;
+}
+
+/*Cuadro de resultado (contine un título y una imagen)*/
+#resultado {
+    text-align: center;
+}
+#resultado img {
+    width: 50%;
+}
+/*Clase con las posibles imagenes*/
+.ganador{
+     background-image: url('../img/ganador.jpg')
+ }
+.perdedor{
+    background-image: url('../img/perdedor.jpg')
+}

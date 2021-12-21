@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ahorcado Spring</title>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+<div class="container text-center">
+<h1>Versión Spring del ahorcado</h1>
+<table>
+    <thead>
+    <th>ID</th>
+    <th>Palabra oculta</th>
+    <th></th>
+    </thead>
+    <tbody>
+        <tr th:each="partida : ${listaPartidas}">
+            <td th:text="${partida.id}">ID</td>
+            <td th:text="${partida.palabraOculta}">palabra</td>
+            <td><a th:href="@{/partida/jugar/{id}(id=${partida.id})}">Jugar</a></td>
+        </tr>
+    </tbody>
+</table>
+<div id="navegacion">
+    <a th:href="@{/partida/jugar/random}">Partida random</a>
+</div>
+</div>
+</body>
+</html>

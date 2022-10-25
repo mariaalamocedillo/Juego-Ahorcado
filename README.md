@@ -384,18 +384,14 @@ Dado que ahora los id no están ordenados, se cambia el método de `obtenerParti
 ## Plantillas
 
 >Índice
-![indice](img-memoria/index-final.png)
-![indice tras quitar y añadir](img-memoria/index-eliminaañade-final.png)
+![indice](/img-memoria/index-final.png)
+![indice tras quitar y añadir](/img-memoria/index-eliminaañade-final.png)
 
 >Partida  
 Se cambiaron los guiones bajos por unas imágenes sobre las que se escriben las letras y guiones
-![partida iniciada](img-memoria/comienzo-partida-final.png)
-![partida en curso](img-memoria/partida-final.png)
+![partida iniciada](/img-memoria/comienzo-partida-final.png)
+![partida en curso](/img-memoria/partida-final.png)
 
 >Final
-![partida ganada](img-memoria/partida-ganada-final.png)
-![partida perdida](img-memoria/partida-perdida-final.png)
-
-
-
-((En el proyecto están comentadas las partes de seguridad con ldap que dimos en clase porque en teoria no hacen falta para el ejercicio))
+![partida ganada](/img-memoria/partida-ganada-final.png)
+![partida perdida](/img-memoria/partida-perdida-final.png)

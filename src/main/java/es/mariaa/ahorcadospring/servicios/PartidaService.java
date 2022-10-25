@@ -2,9 +2,16 @@ package es.mariaa.ahorcadospring.servicios;
 
 
 import es.mariaa.ahorcadospring.modelo.Partida;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.Normalizer;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -14,29 +21,63 @@ import java.util.regex.Pattern;
 public class PartidaService {
     private List<Partida> repositorio = new ArrayList<>();
 
-    public Partida add (Partida p){
+    public void add (Partida p){
         repositorio.add(p);
-        return p;
+    }
+    public void delete (int id){
+        repositorio.removeIf(partida -> partida.getId() == id);
     }
 
     public List<Partida> findAll(){
         return repositorio;
     }
 
-
-
     @PostConstruct //se ejecuta tras ejecutar el constructor
-    public void init(){
-        repositorio.addAll(
-                Arrays.asList(new Partida(1, "pato"),
-                        new Partida(2, "ornitorrinco"),
-                        new Partida(3, "mamut"),
-                        new Partida(4, "antílope"),
-                        new Partida(5, "ñú")
-                )
-        );
+    public void init() throws IOException, JSONException {
+        List<String> palabras = generateRandomWords(14);
+        for (int i = 0; i < palabras.size(); i++) {
+            repositorio.add(new Partida(i+1, palabras.get(i)));
+        }
     }
 
+
+    public List<String> generateRandomWords(int numberOfWords) throws IOException, JSONException {
+        List<String> listado = new ArrayList<>(List.of(new String[0]));
+        for (int i = 0; i <= numberOfWords; i++) {
+            StringBuilder result = new StringBuilder();
+            String nueva;
+            URL url = new URL("https://palabras-aleatorias-public-api.herokuapp.com/random");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            try (var reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                for (String line; (line = reader.readLine()) != null; ) {
+                    result.append(line);
+                }
+            }
+            JSONObject jsonarray = new JSONObject(result.toString());
+            JSONObject objeto = jsonarray.getJSONObject("body");
+            nueva = objeto.getString("Word"); //obtiene valor 10
+            listado.add(nueva.split(" ")[0]);
+        }
+        return listado;
+
+    }
+    public int last(){
+        List<Integer> numeros = new ArrayList<Integer>();
+        for (int i = 1; i < repositorio.size()+1; i++) {
+            numeros.add((int) repositorio.get(i-1).getId());
+        }
+        for (int i = 1; i < repositorio.size()+1; i++) {
+            //si al reccorrer el array, hay una partida que no tiene el mismo id que su posición, significa que no existe ese id; lo devolvemos
+            if (i != repositorio.get(i-1).getId() && !numeros.contains(i)){
+                return i;
+            }
+        }
+        //si todas las partidas del array son continuas, devolvemos el ultimo
+        return repositorio.size()+1;
+    }
+
+    //obtiene número aleatorio para seleccionar una partida (en base al tamaño del array de partidas)
     public int getRandom(){
         //int n = (int) (Math.random() * (<número_máximo + 1> - <número_mínimo>)) + <numero_mínimo>;
         int longitud = repositorio.size() ;
@@ -44,7 +85,12 @@ public class PartidaService {
     }
 
     public Partida obtenerPartida(int id){
-        return repositorio.get(id-1);
+        int i;
+        for (i = 0; i <= repositorio.size(); i++) {
+            if (repositorio.get(i).getId() == id)
+                break;
+        }
+        return repositorio.get(i);
     }
 
     //comprueba si la letra es acertada o no
@@ -56,7 +102,7 @@ public class PartidaService {
         }
         return false;
     }
-
+    //comprobamos si ha acertado la letra usando otros métodos, y realizamos los ajustes pertinentes (número de intentos y nuevo estado)
     public Partida manejarPartida(Partida partida){
         char nuevaLetra = quitaTildes(partida.getNuevaLetra().toLowerCase().charAt(0));
         String palabra = partida.getPalabraOculta();
@@ -67,8 +113,9 @@ public class PartidaService {
         } else {
             String falladas = partida.getLetrasFalladas();
             //si la lista de falladas no contiene la letra introducida con o sin tilde
-            if (!falladas.contains(nuevaLetra + "-")){
-                partida.setLetrasFalladas(falladas + nuevaLetra + "-");
+            if (!falladas.contains("" + nuevaLetra)){
+                if (falladas.length() == 0)  partida.setLetrasFalladas(falladas + nuevaLetra);
+                else  partida.setLetrasFalladas(falladas + "-" + nuevaLetra);
                 partida.setIntentos(partida.getIntentos() - 1);
             }
         }
@@ -88,23 +135,12 @@ public class PartidaService {
             }else if(Objects.equals(quitaTildes(estado.charAt(i)), quitaTildes(letraActual))) {
                 nuevoEstado += letraActual;
             }else {
-                nuevoEstado += '-';
+                nuevoEstado += '_';
             }
         }
         return nuevoEstado;
     }
 
-    //creamos los huecos visualmente
-    public String crearHuecos(String estado){
-        String huecos = "";
-        for (int i = 0; i < estado.length(); i++) {
-            if (estado.charAt(i) == '-')
-                huecos += " ___ ";
-            else
-                huecos += " " + estado.charAt(i) + " ";
-        }
-        return huecos;
-    }
     //asigna la clase de css que se dará a la imagen (representa los intentos)
     public String asignaImg(int intentos){
         String clase = "";
@@ -132,9 +168,10 @@ public class PartidaService {
         }
         return clase;
     }
+
     //elimina las tildes
     public char quitaTildes(char s) {
-        Pattern regex = Pattern.compile("[áéíúó]");
+        Pattern regex = Pattern.compile("[áéíúóäëïüö]");
         Matcher mat = regex.matcher(s + "");
         if (!mat.matches()) //si no es una vocal con tilde, la devolvemos directamente(para no cambiar la ñ)
             return s;

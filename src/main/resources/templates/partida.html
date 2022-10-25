@@ -9,39 +9,53 @@
 
 </head>
 <body>
-<div class="container text-center">
+<div class="container-fluid text-center mt-3">
 <h1>El ahorcado</h1>
     <div class="row">
-    <div class="col text-center mt-3">
-        <img th:class="${claseImagen}" src="../static/img/FFFFFF.png" th:src="@{/img/FFFFFF.png}" alt=""/> <br/>
-        <p th:text="${huecos}">Huecos</p>
+    <div class="col text-center m-auto">
+        <div th:class="${claseImagen} + ' m-auto'" id="muneco"></div>
+
+        <div class="text-center">
+            <span class="contenedor" th:each="hueco : ${partida.estado.toCharArray()}">
+                <img src="../static/img/cuadro.PNG" th:src="@{/img/cuadro.png}" alt="" width="40px"/>
+                <span class="centrado" th:text="${hueco == '_'} ? ' ' : ${hueco}">A</span>
+            </span>
+        </div>
 
         <p th:text="'Le quedan ' + ${partida.intentos} + ' intentos.'" id="intentos">Intentos</p>
     </div>
-    <div class="col m-3 mt-5">
-        <form method="post" action="#"
+    <div class="col m-auto">
+        <form method="post"
               th:action="@{/partida/nuevaLetra}"
               th:object="${partida}">
-        <!--Datos del objeto partida(me fuerza a ponerlos; si no, sale error porque establece los no plasmados como 'null')-->
+        <!--Datos del objeto partida(me fuerza a ponerlos; si no, sale error porque establece los no representados como field como 'null')-->
             <input type="hidden" th:field="*{id}" id="id"/>
             <input type="hidden" th:field="*{palabraOculta}" id="palabra"/>
             <input type="hidden" th:field="*{estado}" id="estado"/>
             <input type="hidden" th:field="*{letrasFalladas}" id="letrasFalladas"/>
             <input type="hidden" th:field="*{intentos}" id="inte"/>
 
-
             <p th:text="'Letras falladas: ' + ${partida.letrasFalladas}">letras falladas</p>
             <label for="nuevaLetra">Introduzca una letra:</label>
-            <input type="text" id="nuevaLetra" th:field="*{nuevaLetra}" minlength="1" maxlength="1" autofocus/>
-            <button type="submit" class="btn btn-default">Comprobar</button>
+            <input type="text" id="nuevaLetra" th:field="*{nuevaLetra}" maxlength="1" autofocus/>
+
+            <div class="error" th:text="${noLetra}"></div>
+
+            <button type="submit" class="btn btn-default"  id="submit">Comprobar</button>
         </form>
+
+
     </div>
-    </div>
-<br/>
-<div id="navegacion">
-    <a th:href="@{/partida/jugar/random}">Jugar otra partida</a> <br/>
-    <a th:href="@{/}">Ir al inicio</a>
 </div>
+<br/>
+
+    <a th:href="@{/partida/jugar/random}">
+        <button class="navegacion">Jugar otra partida</button>
+    </a>
+    <a th:href="@{/}">
+        <button class="navegacion">Ir al inicio</button>
+    </a>
+
 </div>
 </body>
 </html>

@@ -1,42 +1,22 @@
+#muneco{
+    width: 262px;
+    height: 322px;
+}
 .seis {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') 0 0;
+    background: url('../img/6.PNG');
 }
 .cinco {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -78.15px 0;
+    background: url('../img/5.PNG');
 }
 .cuatro {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -156.30px 0;
+    background: url('../img/4.PNG');
 }
 .tres {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -234.45px 0;
+    background: url('../img/3.PNG');
 }
 .dos {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -312.60px 0;
+    background: url('../img/2.png');
 }
 .uno {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -390.75px 0;
-}
-.cero {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -468.90px 0;
+    background: url('../img/1.png') ;
 }

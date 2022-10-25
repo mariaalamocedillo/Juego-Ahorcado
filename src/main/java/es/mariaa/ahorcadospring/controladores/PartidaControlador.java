@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-@Controller
+@RestController
 public class PartidaControlador {
 
     @Autowired
@@ -32,53 +32,71 @@ public class PartidaControlador {
 
         String claseImagen = servicio.asignaImg(p.getIntentos());
         model.addAttribute("claseImagen", claseImagen);
-        model.addAttribute("huecos", servicio.crearHuecos(p.getEstado()));
 
         model.addAttribute( "partida", p);
         return "partida";
     }
 
+    @GetMapping("/partida/borrar/{id}")
+    public String borrarPartida(@PathVariable("id") int id){
+        servicio.delete(id);
+        return "redirect:/";
+    }
+
     @GetMapping("/partida/jugar/random")
     public String partidaRandom (){
-        int partida = servicio.getRandom();
-        return "redirect:/partida/jugar/" + partida;
+        int idPartida = servicio.getRandom();
+        return "redirect:/partida/jugar/" + idPartida;
     }
 
     @PostMapping("/partida/nuevaLetra")
     public String jugada(@ModelAttribute("partida") Partida partida, Model model){
-        //si el carcter introducido es una letra, procedemos a realizar la partida
+        //si el caracter introducido es una letra, procedemos a realizar la partida
         Pattern regex = Pattern.compile("[a-zA-ZÀ-ÿ\u00f1\u00d1]");
         Matcher mat = regex.matcher(partida.getNuevaLetra());
-        if (mat.matches())
+        if (mat.matches()){
             partida = servicio.manejarPartida(partida);
-
+            model.addAttribute("noLetra", "");
+        }else{
+            model.addAttribute("noLetra", "Solo se aceptan letras");
+            partida.setNuevaLetra("");
+        }
         if (partida.getIntentos() == 0 || Objects.equals(partida.getEstado(), partida.getPalabraOculta()))
             return "final";
 
         String claseImagen = servicio.asignaImg(partida.getIntentos());
         model.addAttribute("claseImagen", claseImagen);
-        model.addAttribute("huecos", servicio.crearHuecos(partida.getEstado()));
         return "partida";
     }
 
-/*    @GetMapping("/finPartida")
-    public String finPartida(@ModelAttribute("partida") Partida partida, Model model){
-        String mensajeFinal = "";
 
-        if (partida.getIntentos() == 0)
-            mensajeFinal = "¡Enhorabuena!, has adivinado la palaba";
-        else
-            mensajeFinal = "¡Oh nooo!, has perdido";
+    @PostMapping("/addPartida")
+    public String anadePalabra(@RequestParam String palabra, Model model){
+        //si el carcter introducido es una letra, procedemos a realizar la partida
+        Pattern regex = Pattern.compile("[a-zA-ZÀ-ÿ\u00f1\u00d1]*");
+        Matcher mat = regex.matcher(palabra);
+        if (mat.matches() && !palabra.equals("")) {
+            servicio.add(new Partida(servicio.last(), palabra));
+            model.addAttribute("msg", "");
+        }else{
+            model.addAttribute("msg", "La palabra solo puede contener letras");
+        }
+        model.addAttribute("listaPartidas", servicio.findAll());
+        return "index";
+    }
 
-        model.addAttribute("mensaje", mensajeFinal);
-        return "final";
-    }*/
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public void handle(Exception e) {
         Logger log = null;
-        log.warn("Returning HTTP 400 Bad Request", e);
+        log.warn("Returning HTTP 405 Bad Request", e);
+    }
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public void handles(Exception e) {
+        Logger log = null;
+        log.warn("Returning HTTP 403 Bad Request", e);
     }
 
 }

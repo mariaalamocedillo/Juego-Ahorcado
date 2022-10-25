@@ -27,7 +27,14 @@
         </tr>
         <tr>
             <th>Tu respuesta</th>
-            <td th:text="${partida.estado}">respuesta</td>
+            <td>
+                <div class="text-center">
+                <span class="contenedor" th:each="hueco : ${partida.estado.toCharArray()}">
+                    <img src="../static/img/cuadro.PNG" th:src="@{/img/cuadro.png}" alt="" width="30px"/>
+                    <span class="centrado" th:text="${hueco == '_'} ? ' ' : ${hueco}">A</span>
+                </span>
+                </div>
+            </td>
         </tr>
         <tr>
             <th>Intentos restantes</th>
@@ -39,10 +46,12 @@
         </tr>
     </tbody>
 </table>
-<div id="navegacion">
-    <a th:href="@{/}">Volver al índice</a> <br/>
-    <a th:href="@{/partida/jugar/random}">Jugar otra partida</a>
-</div>
+    <a th:href="@{/partida/jugar/random}">
+        <button class="navegacion">Jugar otra partida</button>
+    </a> <br/>
+    <a th:href="@{/}">
+        <button class="navegacion">Ir al inicio</button>
+    </a>
 </div>
 </body>
 </html>

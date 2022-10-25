@@ -1,10 +1,8 @@
 package es.mariaa.ahorcadospring.modelo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-//@AllArgsConstructor
 public class Partida {
     private long id;
     private String palabraOculta;
@@ -66,7 +64,7 @@ public class Partida {
     private String creaEstado(){
         String estado = "";
         for (int i = 0; i < palabraOculta.length(); i++) {
-            estado += "-";
+            estado += "_";
         }
         return estado;
     }

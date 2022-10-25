@@ -4,17 +4,13 @@ body{
     background-color: #7ad0e040 !important;
     font-family: 'Prompt', serif !important;
 }
-a{
-    background-color: #49cbe3;
-}
 button {
     border: 3px solid #ffed86 !important;
-    color: #ffed86;
-    background-color: rgb(98 187 250);
-    margin-top: 0.5em;
-}
-#navegacion{
     background-color: #ffed86;
+}
+.navegacion{
+    background-color: #ffed86;
+    color: #007bff;
     border-radius: 15px;
     padding: 0.375rem 0.75rem;
     width: 35%;
@@ -56,10 +52,21 @@ h1{
 #resultado img {
     width: 50%;
 }
-/*Clase con las posibles imagenes*/
-.ganador{
-     background-image: url('../img/ganador.jpg')
- }
-.perdedor{
-    background-image: url('../img/perdedor.jpg')
+/*huecos de letras*/
+.contenedor{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+.centrado{
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/*mensajes de error*/
+.error{
+    color: red;
+    font-style: italic;
 }

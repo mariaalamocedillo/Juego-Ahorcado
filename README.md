@@ -237,19 +237,19 @@ public class PartidaControlador {
 
 Se han realizado tres plantillas; 
 > Índice (el enlace de 'partida random' aún no es funcional)
-![indice](img-memoria/index.png)
+![indice](img-memoria/index.PNG)
 
 
 >Partida   
 Inicio de la partida; en la plantilla, se convierte los guiones del estado en tres guiones bajos para mejorar la visualización (con un `th:each`) 
-![inicio de la partida](img-memoria/comienzo-partida.png)
+![inicio de la partida](img-memoria/comienzo-partida.PNG)
 Partida en curso ('Jugar otra partida' tampoco es funcional)
-![partida](img-memoria/partida.png)
+![partida](img-memoria/partida.PNG)
 
 >Final  
 Con un condicional se comprueba cómo ha terminado la partida para establecer el mensaje y la imagen. También se muestra una tabla con los datos de la partida
-![partida ganada](img-memoria/partida-ganada.png)
-![partida perdida](img-memoria/partida-perdida.png)
+![partida ganada](img-memoria/partida-ganada.PNG)
+![partida perdida](img-memoria/partida-perdida.PNG)
 
 # Prueba 2. Partidas aleatorias
 En esta prueba se añade la opción de jugar a partidas aleatorias
@@ -327,8 +327,8 @@ Este método añade la palabra introducida por el usuario a la lista del servici
 ```
 ## Plantilla
 >Índice  
-![index inicial](img-memoria/index-prueba3.png)
-![index añadir y borrar](img-memoria/index-eliminaañade-prueba3.png)
+![index inicial](img-memoria/index-prueba3.PNG)
+![index añadir y borrar](img-memoria/index-eliminaañade-prueba3.PNG)
 
 
 # Prueba 4. Palabras aleatorias y estilos
@@ -384,14 +384,14 @@ Dado que ahora los id no están ordenados, se cambia el método de `obtenerParti
 ## Plantillas
 
 >Índice
-![indice](/img-memoria/index-final.png)
-![indice tras quitar y añadir](/img-memoria/index-eliminaañade-final.png)
+![indice](img-memoria/index-final.PNG)
+![indice tras quitar y añadir](img-memoria/index-eliminaañade-final.PNG)
 
 >Partida  
 Se cambiaron los guiones bajos por unas imágenes sobre las que se escriben las letras y guiones
-![partida iniciada](/img-memoria/comienzo-partida-final.png)
-![partida en curso](/img-memoria/partida-final.png)
+![partida iniciada](img-memoria/comienzo-partida-final.PNG)
+![partida en curso](img-memoria/partida-final.PNG)
 
 >Final
-![partida ganada](/img-memoria/partida-ganada-final.png)
-![partida perdida](/img-memoria/partida-perdida-final.png)
+![partida ganada](img-memoria/partida-ganada-final.PNG)
+![partida perdida](img-memoria/partida-perdida-final.PNG)
